@@ -1,0 +1,48 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/members/dashboard"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Add School</ion-title>
+    <ion-buttons slot="end">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <form (ngSubmit)="onSubmit()" #schoolForm="ngForm">
+    <ion-item>
+      <ion-label position="floating">Name</ion-label>
+      <ion-input
+        type="text"
+        name="name"
+        [(ngModel)]="school.name"
+        required
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Area</ion-label>
+      <ion-input
+        type="text"
+        name="area"
+        [(ngModel)]="school.area"
+        required
+      ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Contact</ion-label>
+      <ion-input
+        type="number"
+        name="contact"
+        [(ngModel)]="school.contact"
+        required
+      ></ion-input>
+    </ion-item>
+
+    <ion-button expand="full" type="submit" [disabled]="!schoolForm.valid">
+      Add School
+    </ion-button>
+  </form>
+</ion-content>

@@ -1,0 +1,129 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>Past visits</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card *ngIf="childVisit.visits.length > 0; else elseData">
+    <ion-card-header style="text-align: center;">
+      <ion-card-title>{{ child.childName }}</ion-card-title>
+    </ion-card-header>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Weight</th>
+              <th>Height</th>
+              <th>BMI</th>
+              <th>Growth Velocity</th>
+              <th>MUAC</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let cvisit of VisitsArray">
+              <td>{{cvisit.date}}</td>
+              <td>{{cvisit.weight}}</td>
+              <td>{{cvisit.height}}</td>
+              <td>{{cvisit.bmi}}</td>
+              <td>{{cvisit.growthVelocity}}</td>
+              <td>{{cvisit.muac}}</td>
+            </tr>
+            
+          </tbody>
+        </table>
+      </div>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Ear Wax</th>
+              <th>Vision</th>
+              <th>Palmar Pallor</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{child.earWax}}</td>
+              <td>{{child.vision}}</td>
+              <td>{{child.palmarPallor}}</td>
+            </tr>
+            
+          </tbody>
+        </table>
+      </div>
+
+      <div class="content-section">
+        <div class="title">DENTAL EXAMINATION</div>
+      </div>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Hygiene</th>
+              <th>Carries</th>
+              <th>Scaling</th>
+              <th>Gaps</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{child.hygiene}}</td>
+              <td>{{child.carries}}</td>
+              <td>{{child.scaling}}</td>
+              <td>{{child.gaps}}</td>
+            </tr>
+            
+          </tbody>
+        </table>
+      </div>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Vaccine</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>EPI</td>
+              <td>{{child.epiStatus}}</td>
+            </tr>
+            <tr>
+              <td>Typhoid</td>
+              <td>{{child.typhoid}}</td>
+            </tr>
+            <tr>
+              <td>Chickenpox</td>
+              <td>{{child.chickenpox}}</td>
+            </tr>
+            <tr>
+              <td>Hepatitis A</td>
+              <td>{{child.hepatitisA}}</td>
+            </tr>
+            <tr>
+              <td>MMR</td>
+              <td>{{child.mmr}}</td>
+            </tr>
+            <tr>
+              <td>Meningitis</td>
+              <td>{{child.meningitis}}</td>
+            </tr>
+            
+          </tbody>
+        </table>
+      </div>
+
+  </ion-card>
+  <ion-card>
+    <ng-template #elseData>
+      no visits at data found, please add a visit first.
+    </ng-template>
+  </ion-card>
+</ion-content>

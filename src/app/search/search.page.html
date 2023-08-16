@@ -1,0 +1,61 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/members/dashboard"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Search</ion-title>
+    <ion-buttons slot="end">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+   <ion-header *ngIf="searchResults.length > 0" style="position: sticky; top: 0; z-index: 999;">
+    <ion-toolbar>&nbsp;&nbsp;<ion-button size="small" (click)="BulkChildDownload(searchResults)">share</ion-button>
+      <ion-button *ngIf="showClearSearchButton" slot="end" (click)="clearSearch()" expand="block" color="primary" style="margin-right: 10px;">
+        Clear Search
+      </ion-button>
+    </ion-toolbar>
+  </ion-header>
+  <ion-searchbar [(ngModel)]="searchQuery" (ionChange)="searchItems()"></ion-searchbar>
+
+  <!-- <ion-list style="text-align: center;" *ngIf="searchQuery !== ''">
+    <ion-text *ngIf="searchResults.length > 0">List of Children</ion-text>
+    <ion-item *ngFor="let child of searchResults; let i = index;" (click)="onChildClick(child)">
+      <div>{{i + 1}})&nbsp;&nbsp;&nbsp;&nbsp;{{ child.childName }}</div>
+    </ion-item>
+    <ion-text *ngIf="noChildFound">
+      No student found. Kindly add one.
+    </ion-text>
+  </ion-list> -->
+
+  <ng-container *ngIf="searchQuery !== ''">
+    <ion-list style="text-align: center;" *ngIf="searchQuery !== ''">
+    <ion-text *ngIf="noChildFound">
+      No student found. Kindly add one.
+    </ion-text>
+  </ion-list>
+    <ion-card *ngFor="let child of searchResults">
+      <ion-card-header style="text-align: center;">
+        <ion-card-title>{{ child.childName }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item>Father: {{ child.fatherName }}</ion-item>
+        <ion-item>Mother: {{ child.motherName }}</ion-item>
+        <ion-item>Gender: {{ child.gender }}</ion-item>
+        <ion-item>Date of Birth: {{ child.dateOfBirth | date: 'longDate' }}</ion-item>
+        <ion-item>Email: {{ child.email }}</ion-item>
+        <ion-item>WhatsApp#: {{ child.whatsappNumber }}</ion-item>
+        <div style="display:flex; justify-content: space-between; margin-top: 10px;">
+    
+          <ion-button size="small" [routerLink]="'/past_visits/' + child.id">Past visits</ion-button>
+          <ion-button size="small"  [routerLink]="'/current_visit/' + child.id">Current visit</ion-button>
+          <ion-button size="small"  (click)="onDownload(child)"> &nbsp;Print&nbsp; </ion-button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </ng-container>
+
+  
+</ion-content>
