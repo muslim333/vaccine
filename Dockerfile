@@ -7,6 +7,7 @@ WORKDIR /app
 
 # Copy package.json and package-lock.json into the container
 COPY package*.json ./
+RUN npm install -g @angular/cli@15.2.8
 
 # Install app dependencies
 RUN npm ci --only=production
