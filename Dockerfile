@@ -1,4 +1,5 @@
 # Stage 1: Build the Angular app
+ Stage 1: Build the Angular app
 FROM node:14-alpine AS build
 
 # Set the working directory inside the container
@@ -9,6 +10,7 @@ COPY package*.json ./
 
 # Install app dependencies
 RUN npm install -g npm@latest
+RUN npm install -g @angular/cli     # Add this line to install Angular CLI
 
 # Copy the rest of the application code into the container
 COPY . .
