@@ -9,7 +9,7 @@ COPY package*.json ./
 
 # Install app dependencies
 RUN npm install -g npm@latest
-RUN npm install -g @angular/cli@12.2.17  # Install a specific version of Angular CLI
+RUN npm install -g @angular/cli@12.2.17
 
 # Copy the rest of the application code into the container
 COPY . .
@@ -21,7 +21,7 @@ RUN npm run build
 FROM nginx:alpine
 
 # Copy the built Angular app from the previous build stage
-COPY --from=build /app/dist/SchoolHealthApp /usr/share/nginx/html
+COPY --from=build /app/www /usr/share/nginx/html
 
 # Expose the default port used by nginx (80)
 EXPOSE 80
