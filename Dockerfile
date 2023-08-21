@@ -1,7 +1,5 @@
 # Stage 1: Build the Angular app
-
 FROM node:16-alpine AS build
-
 
 # Set the working directory inside the container
 WORKDIR /app
@@ -11,7 +9,7 @@ COPY package*.json ./
 
 # Install app dependencies
 RUN npm install -g npm@latest
-RUN npm install -g @angular/cli     # Add this line to install Angular CLI
+RUN npm install -g @angular/cli@12.2.17  # Install a specific version of Angular CLI
 
 # Copy the rest of the application code into the container
 COPY . .
