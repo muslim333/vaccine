@@ -13,7 +13,7 @@ RUN npm install -g @angular/cli@12.2.17
 
 # Copy the rest of the application code into the container
 COPY . .
-
+RUN npm install
 # Build the Angular app for production
 RUN npm run build
 
