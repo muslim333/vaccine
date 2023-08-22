@@ -2,37 +2,36 @@ pipeline {
     agent any
     
     stages {
-        stage('Checkout') {
+        stage('Clone Code') {
             steps {
-                // Checkout your source code from your Git repository
-                checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/muslim333/vaccine.git']]])
+                echo "Cloning the code"
+                git url: "https://github.com/muslim333/vaccine.git", branch: "master"
             }
         }
         
         stage('Build') {
             steps {
-                // Build your Docker image using the Dockerfile in your project
-                script {
-                    def dockerImage = docker.build("vaccine-app:${env.BUILD_ID}")
+                echo "Building the image"
+                sh "docker build -t vaccine-app ."
+            }
+        }
+        stage("push  to Docker hub"){
+            steps {
+                echo "Pushing the image to docker hub"
+                withCredentials([usernamePassword(credentialsId:"Dockerhub",passwordVariable:"DockerhubPass",usernameVariable:"DockerhubUser")]){
+                sh "docker tag vaccine-app ${env.DockerhubUser}/vaccine-app:latest"
+                sh "docker login -u ${env.DockerhubUser} -p ${env.DockerhubPass}"
+                sh "docker push ${env.DockerhubUser}/vaccine-app:latest"
                 }
             }
         }
         
         stage('Deploy') {
             steps {
-                // Deploy the Docker image to Docker Hub
-                script {
-                    docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
-                        dockerImage.push("usamashafique/angular:${env.BUILD_ID}")
-                    }
-                }
+                echo "Deploying the container"
+                sh "docker-compose down && docker-compose up -d"
+                
             }
-        }
-    }
-    
-    post {
-        always {
-            // Clean up resources or perform post-build tasks
         }
     }
 }
