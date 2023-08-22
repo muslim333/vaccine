@@ -24,7 +24,7 @@ FROM nginx:alpine
 COPY --from=build /app/www /usr/share/nginx/html
 
 # Expose the default port used by nginx (80)
-EXPOSE 80
+EXPOSE 8000
 
 # Start the nginx server
 CMD ["nginx", "-g", "daemon off;"]
