@@ -17,14 +17,14 @@ RUN npm install
 # Build the Angular app for production
 RUN npm run build
 
-# Stage 2: Create a lightweight production image
-FROM nginx:alpine
+# Stage 2: Create a lightweight production image with Apache server
+FROM httpd:alpine
 
-# Copy the built Angular app from the previous build stage
-COPY --from=build /app/www /usr/share/nginx/html
+# Copy the built Angular app from the previous build stage to Apache's document root
+COPY --from=build /app/www /usr/local/apache2/htdocs/
 
-# Expose the default port used by nginx (80)
+# Expose the default port used by Apache (80)
 EXPOSE 80
 
-# Start the nginx server
-CMD ["nginx", "-g", "daemon off;"]
+# Start the Apache server
+CMD ["httpd", "-D", "FOREGROUND"]
