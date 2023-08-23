@@ -3,4 +3,4 @@ services:
   vaccine-app:
     image: usamashafique/vaccine-app:latest
     ports:
-      - "80:80"
+      - "81:81"
