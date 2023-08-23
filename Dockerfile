@@ -24,7 +24,7 @@ FROM httpd:alpine
 COPY --from=build /app/www /usr/local/apache2/htdocs/
 
 # Expose the default port used by Apache (80)
-EXPOSE 81
+EXPOSE 80
 
 # Start the Apache server
 CMD ["httpd", "-D", "FOREGROUND"]
